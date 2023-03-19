@@ -4,8 +4,8 @@ metadata:
   name: payment-service
 spec:
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
   selector:
     app: payment-service
 ---
@@ -25,7 +25,17 @@ spec:
         app: payment-service
     spec:
       containers:
-      - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
-        name: payment-service
-        ports:
-        - containerPort: 80
+        - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
+          name: payment-service
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: payment
+  name: payment
+spec:
+  finalizers:
+    - kubernetes
